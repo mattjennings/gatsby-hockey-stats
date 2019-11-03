@@ -7,28 +7,29 @@ import Avatar from "@material-ui/core/Avatar"
 
 interface PlayerPageProps {
   pageContext: {
-    playerId: number
-    playerName: string
-    stats: any
-    headshot: {
-      sm: string
-      md: string
-      lg: string
+    player: {
+      fullName: string
+      stats: any
+      headshot: {
+        sm: string
+        md: string
+        lg: string
+      }
     }
   }
 }
 
-export default function Player({
-  pageContext: { playerId, playerName, stats, headshot },
-}: PlayerPageProps) {
+export default function Player({ pageContext: { player } }: PlayerPageProps) {
   const tab = useTabState({ selectedId: "stats" })
+
+  const { headshot, fullName, stats } = player
 
   return (
     <Layout>
       <Header>
-        <Headshot src={headshot.md} alt={playerName} title={playerName} />
+        <Headshot src={headshot.md} alt={fullName} title={fullName} />
         <HeaderBanner>
-          <h1>{playerName}</h1>
+          <h1>{fullName}</h1>
         </HeaderBanner>
       </Header>
       <StyledTabList {...tab} aria-label="My tabs">

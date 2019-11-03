@@ -1,8 +1,13 @@
+const allPlayers = require("./src/data/players.json")
+
+const players =
+  process.env.NODE_ENV === "development" ? allPlayers.slice(0, 10) : allPlayers
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `NHL Stats`,
+    description: ``,
+    author: `@mattjennings44`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -33,7 +38,29 @@ module.exports = {
     {
       resolve: "load-nhl-players",
       options: {
+        playerIds: players.map(player => player.id),
         playerPageComponent: require.resolve("./src/components/Player.tsx"),
+      },
+    },
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./src/data`,
+      },
+    },
+    {
+      resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
+      options: {
+        // Fields to index
+        fields: [`name`],
+        // How to resolve each field`s value for a supported node type
+        resolvers: {
+          // For any node of type MarkdownRemark, list how to resolve the fields` values
+          PlayersJson: {
+            name: node => node.name,
+          },
+        },
       },
     },
   ],
