@@ -1,25 +1,40 @@
 {
   "name": "gatsby-starter-default",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@nhl-api/client": "^1.1.0",
+    "@nhl-api/players": "^1.1.0",
+    "@nhl-api/teams": "^1.1.0",
+    "@types/styled-components": "^4.1.20",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "babel-plugin-styled-components": "^1.10.6",
+    "batch-promises": "^0.0.3",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "framer-motion": "^1.6.15",
     "gatsby": "^2.17.6",
     "gatsby-image": "^2.2.30",
     "gatsby-plugin-manifest": "^2.2.25",
     "gatsby-plugin-offline": "^3.0.17",
     "gatsby-plugin-react-helmet": "^3.1.13",
     "gatsby-plugin-sharp": "^2.2.34",
+    "gatsby-plugin-styled-components": "^3.1.11",
+    "gatsby-plugin-typescript": "^2.1.15",
     "gatsby-source-filesystem": "^2.1.35",
     "gatsby-transformer-sharp": "^2.3.1",
-    "prop-types": "^15.7.2",
+    "isomorphic-fetch": "^2.2.1",
+    "prettier": "^1.18.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-helmet": "^5.2.1"
-  },
-  "devDependencies": {
-    "prettier": "^1.18.2"
+    "react-helmet": "^5.2.1",
+    "react-table": "next",
+    "reakit": "^1.0.0-beta.10",
+    "styled-components": "^4.4.1",
+    "styled-normalize": "^8.0.6",
+    "typescript": "^3.6.4"
   },
   "keywords": [
     "gatsby"
@@ -31,7 +46,9 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   },
   "repository": {
     "type": "git",
