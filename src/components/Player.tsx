@@ -3,25 +3,30 @@ import Layout from "../components/Layout"
 import styled from "styled-components"
 import { useTabState, Tab, TabList, TabPanel } from "reakit/Tab"
 import PlayerStatsTable from "./PlayerStatsTable"
+import Avatar from "@material-ui/core/Avatar"
 
 interface PlayerPageProps {
   pageContext: {
     playerId: number
     playerName: string
     stats: any
+    headshot: {
+      sm: string
+      md: string
+      lg: string
+    }
   }
 }
 
 export default function Player({
-  pageContext: { playerId, playerName, stats },
+  pageContext: { playerId, playerName, stats, headshot },
 }: PlayerPageProps) {
   const tab = useTabState({ selectedId: "stats" })
-  const img = `https://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}@2x.jpg`
 
   return (
     <Layout>
       <Header>
-        <Headshot src={img} alt={playerName} title={playerName} />
+        <Headshot src={headshot.md} alt={playerName} title={playerName} />
         <HeaderBanner>
           <h1>{playerName}</h1>
         </HeaderBanner>
@@ -34,12 +39,14 @@ export default function Player({
           Profile
         </StyledTab>
       </StyledTabList>
-      <TabPanel {...tab} stopId="stats">
-        <PlayerStatsTable stats={stats} />
-      </TabPanel>
-      <TabPanel {...tab} stopId="profile">
-        Tab 2
-      </TabPanel>
+      <TabPage>
+        <TabPanel {...tab} stopId="stats">
+          <PlayerStatsTable stats={stats} />
+        </TabPanel>
+        <TabPanel {...tab} stopId="profile">
+          todo
+        </TabPanel>
+      </TabPage>
     </Layout>
   )
 }
@@ -52,24 +59,19 @@ const Header = styled.div`
 
 const HeaderBanner = styled.div`
   display: flex;
-  height: 60%;
-  width: 100%;
   margin: auto 0;
   padding: ${props => props.theme.spacing()} 0;
   z-index: 0;
-  padding-left: 40px;
+  padding-left: ${props => props.theme.spacing(2)};
   border-radius: 5px;
   color: ${props => props.theme.colors.text.primary};
 `
 
-const Headshot = styled.img`
+const Headshot = styled(Avatar)`
   ${props => props.theme.shadow[1]};
   ${props => props.theme.outline};
-  border-radius: 50%;
-  object-fit: contain;
-  margin-right: -30px;
-  width: 160px;
-  height: 160px;
+  width: 160px !important;
+  height: 160px !important;
   z-index: 1;
 `
 
@@ -93,4 +95,10 @@ const StyledTab = styled(Tab)`
     font-weight: bold;
     border-bottom: 3px solid ${props => props.theme.colors.text.primary};
   }
+`
+
+const TabPage = styled.div`
+  ${props => props.theme.shadow[1]};
+  ${props => props.theme.outline};
+  border-radius: 5px;
 `
