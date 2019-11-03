@@ -42,7 +42,7 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
       </StyledTabList>
       <TabPage>
         <TabPanel {...tab} stopId="stats">
-          <PlayerStatsTable stats={stats} />
+          <PlayerStatsTable stats={stats[0].splits} />
         </TabPanel>
         <TabPanel {...tab} stopId="profile">
           todo

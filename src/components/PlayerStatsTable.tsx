@@ -107,7 +107,7 @@ export default function PlayerStatsTable({ stats }: { stats: any }) {
   }
 
   const data = useMemo(() => {
-    const extendedStats = stats.yearByYear.map(({ stat, ...year }) => {
+    const extendedStats = stats.map(({ stat, ...year }) => {
       const points = addSafely(stat.goals, stat.assists)
       const powerPlayPoints = addSafely(
         stat.powerPlayGoals,

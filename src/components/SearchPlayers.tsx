@@ -19,9 +19,10 @@ export default function SearchPlayers({ searchIndex }: any) {
           // Map over each ID and return the full document
           .map(({ ref }) => {
             const player = index.documentStore.getDoc(ref)
+
             return {
               name: player.name,
-              id: player.id,
+              id: player.playerId,
             }
           })
       )

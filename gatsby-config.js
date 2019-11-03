@@ -1,8 +1,3 @@
-const allPlayers = require("./src/data/players.json")
-
-const players =
-  process.env.NODE_ENV === "development" ? allPlayers.slice(0, 10) : allPlayers
-
 module.exports = {
   siteMetadata: {
     title: `NHL Stats`,
@@ -38,27 +33,21 @@ module.exports = {
     {
       resolve: "load-nhl-players",
       options: {
-        playerIds: players.map(player => player.id),
         playerPageComponent: require.resolve("./src/components/Player.tsx"),
-      },
-    },
-    `gatsby-transformer-json`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `./src/data`,
       },
     },
     {
       resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
       options: {
         // Fields to index
-        fields: [`name`],
+        fields: ["name", "team"],
         // How to resolve each field`s value for a supported node type
         resolvers: {
           // For any node of type MarkdownRemark, list how to resolve the fields` values
-          PlayersJson: {
-            name: node => node.name,
+          Player: {
+            playerId: node => node.playerId,
+            name: node => node.fullName,
+            team: node => node.currentTeam && node.currentTeam.name,
           },
         },
       },

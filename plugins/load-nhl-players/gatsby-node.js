@@ -5,77 +5,54 @@
  */
 
 const batchPromises = require("batch-promises")
-const fetch = require("isomorphic-fetch")
+const { fetchAllPlayers, fetchPlayer, fetchTeams } = require("./util")
 
 exports.createPages = async (
   { actions: { createPage }, cache },
-  { playerIds, playerPageComponent }
+  { playerPageComponent }
 ) => {
-  await batchPromises(10, playerIds, async playerId => {
-    const cacheKey = `${playerId}-stats`
-    const cachedPlayer = await cache.get(cacheKey)
-    const isCacheExpired = cachedPlayer && cachedPlayer.expiry < Date.now()
+  const players = await fetchAllPlayers(cache)
 
-    const fullPlayer =
-      cachedPlayer && !isCacheExpired
-        ? cachedPlayer
-        : await fetchPlayer(playerId)
-
-    if (!cachedPlayer || isCacheExpired) {
-      // cache for 1 day
-      await cache.set(cacheKey, {
-        ...fullPlayer,
-        expiry: Date.now() + 3600000,
-      })
-    }
-
-    if (fullPlayer.stats) {
-      createPage({
-        path: `/player/${playerId}`,
-        component: playerPageComponent,
-        context: {
-          player: {
-            ...fullPlayer,
-            headshot: {
-              sm: `https://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`,
-              md: `https://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`,
-              lg: `https://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`,
-            },
-          },
-        },
-      })
-    } else {
-      console.warn(`
-      Unable to create page for player ${playerId}
-      
-      fullPlayer:
-      ${fullPlayer}
-      `)
-    }
+  players.forEach(player => {
+    createPage({
+      path: `/player/${player.id}`,
+      component: playerPageComponent,
+      context: {
+        player,
+      },
+    })
   })
 }
 
-async function fetchPlayer(id) {
-  const [
-    {
-      people: [player],
-    },
-    {
-      stats: [yearByYear],
-    },
-  ] = await Promise.all([
-    fetch(`https://statsapi.web.nhl.com/api/v1/people/${id}`).then(res =>
-      res.json()
-    ),
-    fetch(
-      `https://statsapi.web.nhl.com/api/v1/people/${id}/stats?stats=yearByYear`
-    ).then(res => res.json()),
-  ])
+exports.sourceNodes = async ({
+  cache,
+  actions,
+  createNodeId,
+  createContentDigest,
+}) => {
+  const { createNode } = actions
 
-  return {
-    ...player,
-    stats: {
-      yearByYear: yearByYear.splits,
-    },
-  }
+  const players = await fetchAllPlayers(cache)
+
+  players.forEach(player => {
+    const nodeContent = JSON.stringify(player)
+    const data = {
+      ...player,
+      playerId: player.id,
+    }
+    const nodeMeta = {
+      id: createNodeId(`player.${player.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: `Player`,
+        mediaType: `application/json`,
+        content: nodeContent,
+        contentDigest: createContentDigest(data),
+      },
+    }
+
+    const node = Object.assign({}, data, nodeMeta)
+    createNode({ ...node, ...nodeMeta })
+  })
 }
