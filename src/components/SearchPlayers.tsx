@@ -22,7 +22,7 @@ export default function SearchPlayers({ searchIndex }: any) {
 
             return {
               name: player.name,
-              id: player.playerId,
+              id: player.id,
             }
           })
       )

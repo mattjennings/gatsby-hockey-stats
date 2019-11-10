@@ -33,7 +33,13 @@ module.exports = {
     {
       resolve: "load-nhl-players",
       options: {
-        playerPageComponent: require.resolve("./src/components/Player.tsx"),
+        createPlayerPage: player => ({
+          path: `/player/${player.id}`,
+          component: require.resolve("./src/components/Player.tsx"),
+          context: {
+            player,
+          },
+        }),
       },
     },
     {
@@ -45,7 +51,7 @@ module.exports = {
         resolvers: {
           // For any node of type MarkdownRemark, list how to resolve the fields` values
           Player: {
-            playerId: node => node.playerId,
+            id: node => node.id,
             name: node => node.fullName,
             team: node => node.currentTeam && node.currentTeam.name,
           },
