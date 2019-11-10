@@ -3,7 +3,6 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
-import SearchPlayers from "../components/SearchPlayers"
 import Card from "../components/Card"
 import styled from "styled-components"
 import { motion } from "framer-motion"
@@ -48,29 +47,27 @@ const IndexPage = () => {
       <h1>League Leaders</h1>
       <Players>
         {data.leagueLeaders.nodes.map((node, index) => (
-          <PlayerLink key={index} to={`/player/${node.childrenPlayer[0].id}`}>
-            <PlayerCard>
-              <img
-                src={node.childrenPlayer[0].headshot.lg}
-                alt={node.fullname}
-              />
-              <h2 className="name">{node.childrenPlayer[0].fullName}</h2>
-              <h3 className="points">
-                <span className="points-number">{node.stat.points}</span> pts
-              </h3>
-            </PlayerCard>
-          </PlayerLink>
+          <motion.div key={index} whileHover={{ scale: 1.05 }}>
+            <PlayerLink to={`/player/${node.childrenPlayer[0].id}`}>
+              <PlayerCard>
+                <img
+                  src={node.childrenPlayer[0].headshot.lg}
+                  alt={node.fullname}
+                />
+                <h2 className="name">{node.childrenPlayer[0].fullName}</h2>
+                <h3 className="points">
+                  <span className="points-number">{node.stat.points}</span> pts
+                </h3>
+              </PlayerCard>
+            </PlayerLink>
+          </motion.div>
         ))}
       </Players>
     </Layout>
   )
 }
 
-const PlayerLink = styled(props => (
-  <motion.div whileHover={{ scale: 1.05 }}>
-    <Link {...props} />
-  </motion.div>
-))`
+const PlayerLink = styled(Link)`
   text-decoration: none;
   color: inherit;
 `
@@ -87,6 +84,8 @@ const PlayerCard = styled(Card)`
   margin: ${props => props.theme.spacing()};
 
   img {
+    width: 168px;
+    height: 168px;
     border-radius: 5px;
   }
 

@@ -4,7 +4,7 @@ import styled from "styled-components"
 import SearchPlayers from "./SearchPlayers"
 
 const StyledHeader = styled.header`
-  background: rebeccapurple;
+  background: #222222;
   margin-bottom: 1.45rem;
 `
 
