@@ -9,7 +9,7 @@ interface PlayerPageProps {
   pageContext: {
     player: {
       fullName: string
-      stats: any
+      childrenPlayerStats: any
       headshot: {
         sm: string
         md: string
@@ -22,7 +22,7 @@ interface PlayerPageProps {
 export default function Player({ pageContext: { player } }: PlayerPageProps) {
   const tab = useTabState({ selectedId: "stats" })
 
-  const { headshot, fullName, stats } = player
+  const { headshot, fullName, childrenPlayerStats } = player
 
   return (
     <Layout>
@@ -36,16 +36,10 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
         <StyledTab {...tab} stopId="stats">
           Stats
         </StyledTab>
-        <StyledTab {...tab} stopId="profile">
-          Profile
-        </StyledTab>
       </StyledTabList>
       <TabPage>
         <TabPanel {...tab} stopId="stats">
-          <PlayerStatsTable stats={stats[0].splits} />
-        </TabPanel>
-        <TabPanel {...tab} stopId="profile">
-          todo
+          <PlayerStatsTable stats={childrenPlayerStats} />
         </TabPanel>
       </TabPage>
     </Layout>

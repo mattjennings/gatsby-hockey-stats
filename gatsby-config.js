@@ -5,6 +5,10 @@ module.exports = {
     author: `@mattjennings44`,
   },
   plugins: [
+    // local plugins
+    "load-nhl-players",
+
+    // gatsby plugins
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -30,18 +34,6 @@ module.exports = {
     "gatsby-plugin-typescript",
     `gatsby-plugin-offline`,
     "gatsby-plugin-styled-components",
-    {
-      resolve: "load-nhl-players",
-      options: {
-        createPlayerPage: player => ({
-          path: `/player/${player.id}`,
-          component: require.resolve("./src/components/Player.tsx"),
-          context: {
-            player,
-          },
-        }),
-      },
-    },
     {
       resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
       options: {

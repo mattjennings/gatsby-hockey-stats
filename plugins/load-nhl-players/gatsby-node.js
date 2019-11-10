@@ -6,21 +6,6 @@
 
 const { fetchAllPlayers } = require("./util")
 
-exports.createPages = async (
-  { actions: { createPage }, cache },
-  { createPlayerPage }
-) => {
-  const players = await fetchAllPlayers(cache)
-
-  if (createPlayerPage) {
-    players.forEach(player => createPage(createPlayerPage(player)))
-  } else {
-    console.warn(
-      "createPlayerPage option not found, please provide it in options for load-nhl-players"
-    )
-  }
-}
-
 exports.sourceNodes = async ({
   cache,
   actions,
@@ -50,15 +35,12 @@ exports.sourceNodes = async ({
             ...split,
             // assign the split the name of its stat type
             type: type.displayname,
-
-            // attach the player to the stat
-            player___NODE: playerNodeId,
           }
 
           const statsNodeMeta = {
             id: statNodeId,
             parent: null,
-            children: [],
+            children: [playerNodeId],
             internal: {
               type: "PlayerStats",
               mediaType: "application/json",
@@ -66,7 +48,10 @@ exports.sourceNodes = async ({
               contentDigest: createContentDigest(data),
             },
           }
-          createNode({ ...split, ...statsNodeMeta })
+          createNode({
+            ...split,
+            ...statsNodeMeta,
+          })
           return [...total, statNodeId]
         }, []),
       ],
@@ -76,7 +61,7 @@ exports.sourceNodes = async ({
     const playerNodeMeta = {
       id: playerNodeId,
       parent: null,
-      children: [],
+      children: [...playerStatsNodeIds],
       internal: {
         type: `Player`,
         mediaType: `application/json`,
@@ -88,7 +73,6 @@ exports.sourceNodes = async ({
     createNode({
       ...player,
       ...playerNodeMeta,
-      stats___NODE: playerStatsNodeIds,
     })
   })
 }
