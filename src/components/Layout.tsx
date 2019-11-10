@@ -13,7 +13,7 @@ import Theme from "./Theme"
 import "./layout.css"
 import styled from "styled-components"
 
-const Wrapper = styled.div`
+const Main = styled.main`
   margin: 0 auto;
   max-width: 1280px;
   padding: 0px 1.0875rem 1.45rem;
@@ -35,10 +35,7 @@ const Layout: React.FC = ({ children }) => {
     <Theme>
       <Normalize />
       <Header siteTitle={data.site.siteMetadata.title} />
-      <Wrapper>
-        <main>{children}</main>
-        {/* <footer>© {new Date().getFullYear()}</footer> */}
-      </Wrapper>
+      <Main>{children}</Main>
     </Theme>
   )
 }

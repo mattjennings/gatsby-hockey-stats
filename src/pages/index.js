@@ -44,7 +44,7 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
 
-      <h1>League Leaders</h1>
+      <h1 style={{ marginBottom: 10, textAlign: "center" }}>League Leaders</h1>
       <Players>
         {data.leagueLeaders.nodes.map((node, index) => (
           <motion.div key={index} whileHover={{ scale: 1.05 }}>
@@ -74,13 +74,14 @@ const PlayerLink = styled(Link)`
 
 const Players = styled.div`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 `
 
 const PlayerCard = styled(Card)`
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   margin: ${props => props.theme.spacing()};
 
   img {
