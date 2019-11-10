@@ -3,10 +3,18 @@ import { Index } from "elasticlunr"
 import styled from "styled-components"
 import AutoSuggest from "react-autosuggest"
 import debounce from "lodash.debounce"
-import { navigate, prefetchPathname } from "gatsby"
+import { navigate, prefetchPathname, useStaticQuery, graphql } from "gatsby"
 
-export default function SearchPlayers({ searchIndex }: any) {
-  const index = useMemo(() => Index.load(searchIndex), [searchIndex])
+export default function SearchPlayers() {
+  const data = useStaticQuery(graphql`
+    query IndexData {
+      siteSearchIndex {
+        index
+      }
+    }
+  `)
+
+  const index = useMemo(() => Index.load(data.siteSearchIndex.index), [])
 
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState([])
@@ -106,6 +114,8 @@ const Styles = styled.div`
     margin: 0;
     padding: 0;
     list-style-type: none;
+    max-height: 200px;
+    overflow-y: auto;
   }
 
   .react-autosuggest__suggestion {
