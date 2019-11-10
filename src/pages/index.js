@@ -39,7 +39,6 @@ const IndexPage = () => {
       }
     }
   `)
-  console.log(data.leagueLeaders)
 
   return (
     <Layout>

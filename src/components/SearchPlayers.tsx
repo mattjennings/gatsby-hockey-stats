@@ -1,9 +1,9 @@
-import React, { useMemo, useState, useEffect, useCallback } from "react"
+import React, { useMemo, useState, useCallback } from "react"
 import { Index } from "elasticlunr"
 import styled from "styled-components"
 import AutoSuggest from "react-autosuggest"
-import { Link } from "gatsby"
 import debounce from "lodash.debounce"
+import { navigate, prefetchPathname } from "gatsby"
 
 export default function SearchPlayers({ searchIndex }: any) {
   const index = useMemo(() => Index.load(searchIndex), [searchIndex])
@@ -22,6 +22,7 @@ export default function SearchPlayers({ searchIndex }: any) {
 
             return {
               name: player.name,
+              team: player.team,
               id: player.id,
             }
           })
@@ -36,9 +37,17 @@ export default function SearchPlayers({ searchIndex }: any) {
         suggestions={suggestions}
         onSuggestionsFetchRequested={getSuggestions}
         onSuggestionsClearRequested={() => setSuggestions([])}
+        onSuggestionSelected={(ev, data) => {
+          navigate(`/player/${data.suggestion.id}`)
+        }}
+        onSuggestionHighlighted={data => {
+          if (data.suggestion) {
+            prefetchPathname(`/player/${data.suggestion.id}`)
+          }
+        }}
         getSuggestionValue={(suggestion: any) => suggestion.name}
         renderSuggestion={(suggestion: any) => {
-          return <Link to={`/player/${suggestion.id}`}>{suggestion.name}</Link>
+          return <span>{suggestion.name}</span>
         }}
         inputProps={{
           value: query,
