@@ -5,6 +5,7 @@ import {
   createGlobalStyle,
 } from "styled-components"
 import { Normalize } from "styled-normalize"
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core"
 
 const theme: DefaultTheme = {
   outline: "border: 1px solid rgba(0, 0, 0, 0.1)",
@@ -60,12 +61,18 @@ const GlobalStyle = createGlobalStyle`
 export default function Theme({ children }) {
   return (
     <ThemeProvider theme={theme}>
-      <>
+      <MuiThemeProvider
+        theme={createMuiTheme({
+          typography: {
+            fontFamily: "inherit",
+          },
+        })}
+      >
         <Normalize />
 
         <GlobalStyle />
         {children}
-      </>
+      </MuiThemeProvider>
     </ThemeProvider>
   )
 }

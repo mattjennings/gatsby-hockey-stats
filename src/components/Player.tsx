@@ -24,7 +24,7 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
   const { fullName, childrenPlayerStats } = player
 
   return (
-    <>
+    <Root>
       <Header>
         <Headshot
           critical
@@ -46,10 +46,14 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
           <PlayerStatsTable stats={childrenPlayerStats} />
         </TabPanel>
       </TabPage>
-    </>
+    </Root>
   )
 }
 
+const Root = styled.div`
+  width: fit-content;
+  margin: auto;
+`
 const Header = styled.div`
   height: 160px;
   width: 100%;
@@ -70,8 +74,6 @@ const Headshot = styled(Img)`
   ${props => props.theme.shadow[1]};
   ${props => props.theme.outline};
   border-radius: 50%;
-  width: 160px;
-  height: 160px;
   z-index: 1;
 `
 
@@ -101,4 +103,5 @@ const TabPage = styled.div`
   ${props => props.theme.shadow[1]};
   ${props => props.theme.outline};
   border-radius: 5px;
+  max-width: 90vw;
 `

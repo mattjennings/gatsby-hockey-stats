@@ -14,6 +14,7 @@ const columns = [
   {
     id: "season",
     label: "Season",
+
     render: season => {
       return `${season.slice(0, 4)}-${season.slice(6)}`
     },
@@ -21,6 +22,7 @@ const columns = [
   {
     id: "league.name",
     label: "League",
+
     render: league => {
       switch (league) {
         case "National Hockey League":
@@ -83,15 +85,18 @@ const columns = [
     id: "stat.shotPct",
     label: "S%",
     align: "right",
-    render: value => (value ? `${value}%` : null),
+
+    render: value => (value ? `${Math.round(value)}%` : null),
   },
   {
     id: "stat.faceOffPct",
     label: "FO%",
     align: "right",
-    render: value => (value ? `${value}%` : null),
+
+    render: value => (value ? `${Math.round(value)}%` : null),
   },
 ]
+
 export default function PlayerStatsTable({ stats }: { stats: any }) {
   const [sort, setSort] = useState("season")
   const [order, setOrder] = useState<"asc" | "desc">("desc")
@@ -139,7 +144,7 @@ export default function PlayerStatsTable({ stats }: { stats: any }) {
 
   return (
     <Root>
-      <Table size="small" stickyHeader>
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
             {columns.map(({ label, id, render, ...columnProps }) => (
@@ -195,13 +200,20 @@ const Root = styled.div`
 
   table {
     display: block;
-    max-width: 90vw;
     max-height: 600px;
   }
 `
 
 const StyledTableCell = styled(TableCell)`
+  padding: ${props => props.theme.spacing()} ${props => props.theme.spacing()};
   white-space: nowrap;
+
+  &:first-of-type {
+    padding-left: ${props => props.theme.spacing(2)};
+  }
+  &:last-of-type {
+    padding-right: ${props => props.theme.spacing(2)};
+  }
 `
 
 const HeaderCell = styled(StyledTableCell)`

@@ -43,7 +43,7 @@ const IndexPage = () => {
   const [leagueLeader, ...players] = data.leagueLeaders.nodes
 
   return (
-    <>
+    <Root>
       <SEO title="Home" />
 
       <h1 style={{ marginBottom: 10, textAlign: "center" }}>League Leaders</h1>
@@ -55,9 +55,11 @@ const IndexPage = () => {
           <PlayerRankCard key={index} player={node} rank={index + 2} />
         ))}
       </Players>
-    </>
+    </Root>
   )
 }
+
+const Root = styled.div``
 
 const Players = styled.div`
   width: 100%;
