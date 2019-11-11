@@ -1,19 +1,18 @@
 import React from "react"
-import Layout from "../components/Layout"
 import styled from "styled-components"
 import { useTabState, Tab, TabList, TabPanel } from "reakit/Tab"
 import PlayerStatsTable from "./PlayerStatsTable"
-import Avatar from "@material-ui/core/Avatar"
+import Img from "gatsby-image"
 
 interface PlayerPageProps {
   pageContext: {
     player: {
       fullName: string
       childrenPlayerStats: any
-      headshot: {
-        sm: string
-        md: string
-        lg: string
+      headshotImage: {
+        childImageSharp: {
+          fixed: any
+        }
       }
     }
   }
@@ -22,12 +21,17 @@ interface PlayerPageProps {
 export default function Player({ pageContext: { player } }: PlayerPageProps) {
   const tab = useTabState({ selectedId: "stats" })
 
-  const { headshot, fullName, childrenPlayerStats } = player
+  const { fullName, childrenPlayerStats } = player
 
   return (
-    <Layout>
+    <>
       <Header>
-        <Headshot src={headshot.md} alt={fullName} title={fullName} />
+        <Headshot
+          critical
+          fixed={player.headshotImage.childImageSharp.fixed}
+          alt={fullName}
+          title={fullName}
+        />
         <HeaderBanner>
           <h1>{fullName}</h1>
         </HeaderBanner>
@@ -42,7 +46,7 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
           <PlayerStatsTable stats={childrenPlayerStats} />
         </TabPanel>
       </TabPage>
-    </Layout>
+    </>
   )
 }
 
@@ -62,11 +66,12 @@ const HeaderBanner = styled.div`
   color: ${props => props.theme.colors.text.primary};
 `
 
-const Headshot = styled(Avatar)`
+const Headshot = styled(Img)`
   ${props => props.theme.shadow[1]};
   ${props => props.theme.outline};
-  width: 160px !important;
-  height: 160px !important;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
   z-index: 1;
 `
 

@@ -18,10 +18,16 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             code
             name
           }
-          headshot {
-            sm
-            md
-            lg
+          headshotImage {
+            childImageSharp {
+              fixed(width: 168, quality: 90) {
+                # gatsby-image fragment cannot be used in gatsby-node, so we type it out by hand
+                src
+                srcSet
+                width
+                height
+              }
+            }
           }
           childrenPlayerStats {
             season

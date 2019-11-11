@@ -1,11 +1,11 @@
 import React from "react"
 import { graphql, useStaticQuery, Link } from "gatsby"
 
-import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import Card from "../components/Card"
 import styled from "styled-components"
 import { motion } from "framer-motion"
+import Img from "gatsby-image"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -30,9 +30,12 @@ const IndexPage = () => {
             currentTeam {
               name
             }
-            headshot {
-              md
-              lg
+            headshotImage {
+              childImageSharp {
+                fixed(width: 168, quality: 90) {
+                  ...GatsbyImageSharpFixed_noBase64
+                }
+              }
             }
           }
         }
@@ -41,7 +44,7 @@ const IndexPage = () => {
   `)
 
   return (
-    <Layout>
+    <>
       <SEO title="Home" />
 
       <h1 style={{ marginBottom: 10, textAlign: "center" }}>League Leaders</h1>
@@ -50,8 +53,10 @@ const IndexPage = () => {
           <motion.div key={index} whileHover={{ scale: 1.05 }}>
             <PlayerLink to={`/player/${node.childrenPlayer[0].id}`}>
               <PlayerCard>
-                <img
-                  src={node.childrenPlayer[0].headshot.lg}
+                <Img
+                  fixed={
+                    node.childrenPlayer[0].headshotImage.childImageSharp.fixed
+                  }
                   alt={node.fullname}
                 />
                 <h2 className="name">{node.childrenPlayer[0].fullName}</h2>
@@ -63,7 +68,7 @@ const IndexPage = () => {
           </motion.div>
         ))}
       </Players>
-    </Layout>
+    </>
   )
 }
 

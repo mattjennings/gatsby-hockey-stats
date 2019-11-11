@@ -70,5 +70,23 @@ module.exports = {
         },
       },
     },
+
+    // load player headshots into gatsby-image
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: "Player",
+        name: "headshotImage",
+        imagePath: "headshot.lg",
+      },
+    },
+
+    // use Layout.tsx for every page (and prevent unmount between pages)
+    {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`./src/layouts/MainLayout.tsx`),
+      },
+    },
   ],
 }

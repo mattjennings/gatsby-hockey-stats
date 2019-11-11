@@ -6,9 +6,8 @@
  */
 
 import React from "react"
-import Header from "./Header"
-import Theme from "./Theme"
-// import "./layout.css"
+import Header from "../components/Header"
+import Theme from "../components/Theme"
 import styled from "styled-components"
 
 const Root = styled.div`

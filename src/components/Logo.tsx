@@ -12,16 +12,16 @@ export default function Logo({ withName, white, ...imgProps }: LogoProps) {
     query {
       logo: file(relativePath: { eq: "logo.png" }) {
         childImageSharp {
-          fluid(maxWidth: 125) {
-            ...GatsbyImageSharpFluid_noBase64
+          fixed(width: 80) {
+            ...GatsbyImageSharpFixed
           }
         }
       }
 
       logoWithName: file(relativePath: { eq: "logo-with-name.png" }) {
         childImageSharp {
-          fluid(maxWidth: 125) {
-            ...GatsbyImageSharpFluid_noBase64
+          fixed(width: 80) {
+            ...GatsbyImageSharpFixed
           }
         }
       }
@@ -30,8 +30,8 @@ export default function Logo({ withName, white, ...imgProps }: LogoProps) {
         relativePath: { eq: "logo-with-name-white.png" }
       ) {
         childImageSharp {
-          fluid(maxWidth: 125) {
-            ...GatsbyImageSharpFluid_noBase64
+          fixed(width: 80) {
+            ...GatsbyImageSharpFixed
           }
         }
       }
@@ -45,7 +45,7 @@ export default function Logo({ withName, white, ...imgProps }: LogoProps) {
 
   return (
     <Img
-      fluid={data[logoKey].childImageSharp.fluid}
+      fixed={data[logoKey].childImageSharp.fixed}
       alt="Hockey Stats Logo"
       title="Hockey Stats Logo"
       {...imgProps}
