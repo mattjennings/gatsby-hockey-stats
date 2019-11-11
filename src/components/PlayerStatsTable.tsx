@@ -139,7 +139,7 @@ export default function PlayerStatsTable({ stats }: { stats: any }) {
 
   return (
     <Root>
-      <Table size="small">
+      <Table size="small" stickyHeader>
         <TableHead>
           <TableRow>
             {columns.map(({ label, id, render, ...columnProps }) => (
@@ -191,7 +191,13 @@ function addSafely(...nums) {
 }
 
 const Root = styled.div`
-  overflow-x: scroll;
+  overflow: scroll;
+
+  table {
+    display: block;
+    max-width: 90vw;
+    max-height: 600px;
+  }
 `
 
 const StyledTableCell = styled(TableCell)`
