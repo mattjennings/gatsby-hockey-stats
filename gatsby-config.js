@@ -9,7 +9,6 @@ module.exports = {
     "load-nhl-players",
 
     // gatsby plugins
-
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -34,6 +33,14 @@ module.exports = {
     },
     "gatsby-plugin-typescript",
     `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {
+        stylesProvider: {
+          injectFirst: true,
+        },
+      },
+    },
     "gatsby-plugin-styled-components",
     {
       resolve: `gatsby-plugin-prefetch-google-fonts`,

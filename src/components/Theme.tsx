@@ -1,5 +1,10 @@
 import React from "react"
-import { ThemeProvider, DefaultTheme } from "styled-components"
+import {
+  ThemeProvider,
+  DefaultTheme,
+  createGlobalStyle,
+} from "styled-components"
+import { Normalize } from "styled-normalize"
 
 const theme: DefaultTheme = {
   outline: "border: 1px solid rgba(0, 0, 0, 0.1)",
@@ -37,8 +42,32 @@ const theme: DefaultTheme = {
   },
 }
 
+const GlobalStyle = createGlobalStyle`
+  html {
+    font-family: "Montserrat", sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    
+  }
+  h1 {
+    margin: 0;
+}
+`
+
 export default function Theme({ children }) {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  return (
+    <ThemeProvider theme={theme}>
+      <>
+        <Normalize />
+
+        <GlobalStyle />
+        {children}
+      </>
+    </ThemeProvider>
+  )
 }
 
 declare module "styled-components" {
