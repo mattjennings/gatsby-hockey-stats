@@ -66,7 +66,11 @@ async function getFromCache(key, cache) {
 }
 
 async function setCacheItem(key, value, cache) {
-  return cache.set(key, { ...value, __expiry__: Date.now() + 3600000 })
+  // 4 hour cache
+  return cache.set(key, {
+    ...value,
+    __expiry__: Date.now() + 1000 * 60 * 60 * 4,
+  })
 }
 
 module.exports = {
