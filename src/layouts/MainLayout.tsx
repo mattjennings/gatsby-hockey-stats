@@ -43,6 +43,14 @@ const Layout: React.FC = ({ children }) => {
         <Header />
         <Main>{children}</Main>
         <Footer>
+          <a
+            href="https://github.com/mattjennings/gatsby-hockey-stats"
+            title="GitHub Repository"
+          >
+            View on GitHub
+          </a>
+          <br />
+          <br />
           Created by{" "}
           <a
             href="https://twitter.com/mattjennings44"
@@ -50,13 +58,6 @@ const Layout: React.FC = ({ children }) => {
           >
             @mattjennings44
           </a>{" "}
-          -{" "}
-          <a
-            href="https://github.com/mattjennings/gatsby-hockey-stats"
-            title="GitHub Repository"
-          >
-            View on GitHub
-          </a>
         </Footer>
       </Root>
     </Theme>
