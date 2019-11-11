@@ -18,16 +18,17 @@ const Root = styled.div`
 
 const Main = styled.main`
   margin: 0 auto;
-  max-width: 1280px;
   padding: 0px 1.0875rem 1.45rem;
   padding-top: 0;
   flex-grow: 1;
+  max-width: 1280px;
+  width: 100%;
 `
 
 const Footer = styled.footer`
   background: #222222;
   text-align: center;
-  padding: ${props => props.theme.spacing()};
+  padding: ${props => props.theme.spacing(2)};
   font-weight: 400;
   color: #f2f2f2;
 
