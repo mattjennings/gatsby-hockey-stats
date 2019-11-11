@@ -60,6 +60,7 @@ export default function SearchPlayers() {
         inputProps={{
           value: query,
           onChange: (ev, { newValue }) => setQuery(newValue),
+          placeholder: "Search for a player",
         }}
       />
     </Styles>
@@ -72,11 +73,8 @@ const Styles = styled.div`
   }
 
   .react-autosuggest__input {
-    width: 240px;
     height: 30px;
-    padding: 10px 20px;
-    font-family: Helvetica, sans-serif;
-    font-weight: 300;
+    padding: 8px;
     font-size: 16px;
     border: 1px solid #aaa;
     border-radius: 4px;
@@ -98,12 +96,12 @@ const Styles = styled.div`
   .react-autosuggest__suggestions-container--open {
     display: block;
     position: absolute;
-    top: 51px;
-    width: 280px;
+    top: 47px;
+    width: 100%;
+    box-sizing: border-box;
     border: 1px solid #aaa;
     background-color: #fff;
-    font-family: Helvetica, sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 16px;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;

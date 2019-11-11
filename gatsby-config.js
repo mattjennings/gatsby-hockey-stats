@@ -9,6 +9,7 @@ module.exports = {
     "load-nhl-players",
 
     // gatsby plugins
+
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -22,18 +23,30 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Hockey Stats`,
+        short_name: `HockeyStats`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#222222`,
+        theme_color: `#222222`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/logo.png`, // This path is relative to the root of the site.
       },
     },
     "gatsby-plugin-typescript",
     `gatsby-plugin-offline`,
     "gatsby-plugin-styled-components",
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Montserrat`,
+            subsets: [`latin`],
+            variants: [`400`, "500", `700`],
+          },
+        ],
+      },
+    },
     {
       resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
       options: {
