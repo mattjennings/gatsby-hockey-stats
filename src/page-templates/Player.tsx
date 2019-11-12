@@ -170,7 +170,7 @@ const StyledTab = styled(Tab)`
   font-weight: normal;
   font-size: ${props => props.theme.font.size.button};
   text-transform: uppercase;
-  margin-bottom: ${props => props.theme.spacing(2)};
+  margin-bottom: ${props => props.theme.spacing()};
   margin-right: ${props => props.theme.spacing()};
 
   &[aria-selected="true"] {
@@ -192,6 +192,7 @@ const StyledPlayerStatsTable = styled(PlayerStatsTable)`
 const Filters = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: ${props => props.theme.spacing()};
 
   .all {
     width: 100%;
