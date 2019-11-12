@@ -206,8 +206,8 @@ function addSafely(...nums) {
 const Root = styled.div`
   overflow: scroll;
   font-family: sans-serif;
+
   table {
-    display: block;
     max-height: 600px;
   }
 `
