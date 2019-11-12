@@ -4,6 +4,7 @@ import styled from "styled-components"
 import AutoSuggest from "react-autosuggest"
 import debounce from "lodash.debounce"
 import { navigate, prefetchPathname, useStaticQuery, graphql } from "gatsby"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function SearchPlayers() {
   const data = useStaticQuery(graphql`
@@ -57,6 +58,34 @@ export default function SearchPlayers() {
         renderSuggestion={(suggestion: any) => {
           return <span>{suggestion.name}</span>
         }}
+        renderSuggestionsContainer={useMemo(
+          () => ({ containerProps, children }) => {
+            return (
+              <AnimatePresence>
+                {children && (
+                  <motion.div
+                    {...containerProps}
+                    initial={{
+                      height: 0,
+                      overflow: "hidden",
+                      opacity: 0,
+                    }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{
+                      height: 0,
+                      overflow: "hidden",
+                      opacity: 0,
+                    }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    {children}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            )
+          },
+          []
+        )}
         inputProps={{
           value: query,
           onChange: (ev, { newValue }) => setQuery(newValue),
