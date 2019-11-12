@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { useTabState, Tab, TabList, TabPanel } from "reakit/Tab"
-import PlayerStatsTable from "./PlayerStatsTable"
+import PlayerStatsTable from "../components/PlayerStatsTable"
 import Img from "gatsby-image"
 import { Checkbox } from "reakit/Checkbox"
 import usePlayerStatFilters, {

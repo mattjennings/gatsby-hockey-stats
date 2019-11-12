@@ -18,8 +18,6 @@ const Root = styled.div`
 
 const Main = styled.main`
   margin: 0 auto;
-  padding: ${props => props.theme.spacing(2)};
-  padding-top: 0;
   flex-grow: 1;
   max-width: 1280px;
   width: 100%;

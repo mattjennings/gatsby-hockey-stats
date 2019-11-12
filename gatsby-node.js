@@ -94,7 +94,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   data.allPlayer.nodes.forEach(node =>
     createPage({
       path: `/player/${node.id}`,
-      component: require.resolve("./src/components/Player.tsx"),
+      component: require.resolve("./src/page-templates/Player.tsx"),
       context: {
         player: node,
       },
