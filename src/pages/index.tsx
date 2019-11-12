@@ -64,7 +64,6 @@ const Root = styled.div`
 `
 
 const Players = styled.div`
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: ${props => props.theme.spacing(2)};

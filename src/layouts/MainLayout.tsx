@@ -20,7 +20,9 @@ const Main = styled.main`
   margin: 0 auto;
   flex-grow: 1;
   max-width: 1280px;
-  width: 100%;
+  width: 100vw;
+  padding: ${props => props.theme.spacing()};
+  box-sizing: border-box;
 `
 
 const Footer = styled.footer`

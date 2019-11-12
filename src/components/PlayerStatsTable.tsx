@@ -209,6 +209,7 @@ const Root = styled.div`
 
   table {
     max-height: 600px;
+    display: inline-table;
   }
 `
 
