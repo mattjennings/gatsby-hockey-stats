@@ -19,12 +19,24 @@ interface PlayerPageProps {
           fixed: any
         }
       }
+      primaryPosition: {
+        code: string
+        name: string
+      }
+      currentTeam: {
+        name: string
+      }
     }
   }
 }
 
 export default function Player({ pageContext: { player } }: PlayerPageProps) {
-  const { fullName, childrenPlayerStats: stats } = player
+  const {
+    fullName,
+    childrenPlayerStats: stats,
+    primaryPosition,
+    currentTeam,
+  } = player
 
   const tab = useTabState({ selectedId: "stats" })
 
@@ -55,6 +67,9 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
         />
         <HeaderBanner>
           <h1>{fullName}</h1>
+          <h5 className="subtitle">
+            {currentTeam.name} | {primaryPosition.name}
+          </h5>
         </HeaderBanner>
       </Header>
       <StyledTabList {...tab} aria-label="My tabs">
@@ -118,12 +133,21 @@ const Header = styled.div`
 
 const HeaderBanner = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: auto 0;
-  padding: ${props => props.theme.spacing()} 0;
   z-index: 0;
+  padding: ${props => props.theme.spacing()} 0;
   padding-left: ${props => props.theme.spacing(2)};
-  border-radius: 5px;
   color: ${props => props.theme.colors.text.primary};
+
+  .subtitle {
+    margin: 0;
+    margin-left: ${props => props.theme.spacing(0.5)};
+    margin-top: ${props => props.theme.spacing()};
+    text-transform: uppercase;
+    color: ${props => props.theme.colors.text.subtitle};
+  }
 `
 
 const Headshot = styled(Img)`
