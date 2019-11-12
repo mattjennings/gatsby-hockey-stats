@@ -180,7 +180,7 @@ const StyledTab = styled(Tab)`
 `
 
 const TabPage = styled.div`
-  max-width: 90vw;
+  max-width: 95vw;
 `
 
 const StyledPlayerStatsTable = styled(PlayerStatsTable)`
