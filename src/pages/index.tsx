@@ -59,7 +59,9 @@ const IndexPage = () => {
   )
 }
 
-const Root = styled.div``
+const Root = styled.div`
+  margin-bottom: ${props => props.theme.spacing(4)};
+`
 
 const Players = styled.div`
   width: 100%;
