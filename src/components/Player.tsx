@@ -1,8 +1,13 @@
-import React from "react"
+import React, { useState, useMemo, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { useTabState, Tab, TabList, TabPanel } from "reakit/Tab"
 import PlayerStatsTable from "./PlayerStatsTable"
 import Img from "gatsby-image"
+import { Checkbox } from "reakit/Checkbox"
+import usePlayerStatFilters, {
+  getDefaultFilters,
+  getAllLeagueNames,
+} from "../hooks/usePlayerStatFilters"
 
 interface PlayerPageProps {
   pageContext: {
@@ -19,15 +24,31 @@ interface PlayerPageProps {
 }
 
 export default function Player({ pageContext: { player } }: PlayerPageProps) {
+  const { fullName, childrenPlayerStats: stats } = player
+
   const tab = useTabState({ selectedId: "stats" })
 
-  const { fullName, childrenPlayerStats } = player
+  const allLeaguesCheckboxRef = useRef(null)
+  const [filters, setFilters] = useState(getDefaultFilters(stats))
+  const filteredStats = usePlayerStatFilters({
+    stats,
+    filters,
+  })
+
+  const allLeagueNames = useMemo(() => getAllLeagueNames(stats), [stats])
+
+  // manage "all leagues" checkbox indeterminate state
+  useEffect(() => {
+    allLeaguesCheckboxRef.current.indeterminate =
+      filters.leagues.length > 0 &&
+      filters.leagues.length !== allLeagueNames.length
+  }, [filters, allLeagueNames])
 
   return (
     <Root>
       <Header>
         <Headshot
-          critical
+          loading="eager"
           fixed={player.headshotImage.childImageSharp.fixed}
           alt={fullName}
           title={fullName}
@@ -43,7 +64,41 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
       </StyledTabList>
       <TabPage>
         <TabPanel {...tab} stopId="stats">
-          <PlayerStatsTable stats={childrenPlayerStats} />
+          <Filters>
+            <label className="all">
+              <Checkbox
+                ref={allLeaguesCheckboxRef}
+                checked={
+                  !filters.leagues ||
+                  filters.leagues.length === allLeagueNames.length
+                }
+                onChange={ev =>
+                  setFilters({
+                    ...filters,
+                    leagues: !ev.target.checked ? [...allLeagueNames] : [],
+                  })
+                }
+              />{" "}
+              All Leagues
+            </label>
+            {allLeagueNames.map(name => (
+              <label key={name}>
+                <Checkbox
+                  checked={!filters.leagues || filters.leagues.includes(name)}
+                  onChange={ev =>
+                    setFilters({
+                      ...filters,
+                      leagues: !ev.target.checked
+                        ? [...filters.leagues, name]
+                        : filters.leagues.filter(league => league !== name),
+                    })
+                  }
+                />{" "}
+                {name}
+              </label>
+            ))}
+          </Filters>
+          <StyledPlayerStatsTable showFilters stats={filteredStats} />
         </TabPanel>
       </TabPage>
     </Root>
@@ -54,6 +109,7 @@ const Root = styled.div`
   width: fit-content;
   margin: auto;
 `
+
 const Header = styled.div`
   height: 160px;
   width: 100%;
@@ -100,8 +156,24 @@ const StyledTab = styled(Tab)`
 `
 
 const TabPage = styled.div`
+  max-width: 90vw;
+`
+
+const StyledPlayerStatsTable = styled(PlayerStatsTable)`
   ${props => props.theme.shadow[1]};
   ${props => props.theme.outline};
   border-radius: 5px;
-  max-width: 90vw;
+`
+
+const Filters = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  .all {
+    width: 100%;
+  }
+
+  label {
+    margin: ${props => props.theme.spacing()};
+  }
 `

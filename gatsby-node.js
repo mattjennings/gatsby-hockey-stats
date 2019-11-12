@@ -78,9 +78,11 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             }
             sequenceNumber
             league {
+              id
               name
             }
             team {
+              id
               name
             }
           }

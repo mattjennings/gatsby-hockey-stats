@@ -10,7 +10,7 @@ const IndexPage = () => {
       leagueLeaders: allPlayerStats(
         filter: {
           stat: { points: { ne: null } }
-          league: { name: { eq: "National Hockey League" } }
+          league: { id: { eq: 133 } } # 133 = NHL league id
           season: { eq: "20192020" }
         }
         limit: 10

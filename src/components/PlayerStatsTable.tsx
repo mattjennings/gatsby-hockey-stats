@@ -5,10 +5,15 @@ import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import TableRow from "@material-ui/core/TableRow"
-import TableCell, { TableCellProps } from "@material-ui/core/TableCell"
+import TableCell from "@material-ui/core/TableCell"
 import TableSortLabel from "@material-ui/core/TableSortLabel"
 import { Hidden } from "reakit"
 import get from "lodash.get"
+
+export interface PlayerStatsTableProps {
+  stats: any
+  showFilters?: boolean
+}
 
 const columns = [
   {
@@ -97,7 +102,10 @@ const columns = [
   },
 ]
 
-export default function PlayerStatsTable({ stats }: { stats: any }) {
+export default function PlayerStatsTable({
+  stats,
+  ...props
+}: PlayerStatsTableProps) {
   const [sort, setSort] = useState("season")
   const [order, setOrder] = useState<"asc" | "desc">("desc")
 
@@ -140,10 +148,10 @@ export default function PlayerStatsTable({ stats }: { stats: any }) {
 
       return (get(a, sort, 0) > get(b, sort, 0) ? 1 : -1) * dir
     })
-  }, [stats, sort, order])
+  }, [sort, order, stats])
 
   return (
-    <Root>
+    <Root {...props}>
       <Table stickyHeader>
         <TableHead>
           <TableRow>
@@ -197,7 +205,7 @@ function addSafely(...nums) {
 
 const Root = styled.div`
   overflow: scroll;
-
+  font-family: sans-serif;
   table {
     display: block;
     max-height: 600px;
