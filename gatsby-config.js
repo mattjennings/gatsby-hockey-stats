@@ -32,15 +32,6 @@ module.exports = {
       },
     },
     "gatsby-plugin-typescript",
-    `gatsby-plugin-offline`,
-    {
-      resolve: `gatsby-plugin-material-ui`,
-      options: {
-        stylesProvider: {
-          injectFirst: true,
-        },
-      },
-    },
     "gatsby-plugin-styled-components",
     {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
