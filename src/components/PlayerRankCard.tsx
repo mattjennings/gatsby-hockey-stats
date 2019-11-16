@@ -19,6 +19,7 @@ export default function PlayerRankCard({ player, rank }: PlayerRankCardProps) {
           <Headshot
             fixed={player.childrenPlayer[0].headshotImage.childImageSharp.fixed}
             alt={player.fullname}
+            critical
           />
 
           <CardContent>
@@ -39,20 +40,22 @@ const PlayerLink = styled(Link)`
 `
 
 const PlayerCard = styled(Card)`
+  height: 100%;
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
   text-align: center;
+
   img {
     border-radius: 5px;
   }
 
   .points,
   .name {
-    font-size: 1em;
-    font-weight: normal;
+    font-size: 1.2em;
+    font-weight: 500;
   }
 
   .points-number {

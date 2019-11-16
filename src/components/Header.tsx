@@ -7,7 +7,6 @@ import useMediaQuery from "@material-ui/core/useMediaQuery"
 
 const StyledHeader = styled.header`
   background: #222222;
-  margin-bottom: 1.45rem;
 `
 
 const HeaderContents = styled.div`

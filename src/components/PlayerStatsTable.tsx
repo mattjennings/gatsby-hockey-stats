@@ -47,13 +47,13 @@ const columns = [
     align: "right",
   },
   {
-    id: "stat.assists",
-    label: "A",
+    id: "stat.goals",
+    label: "G",
     align: "right",
   },
   {
-    id: "stat.goals",
-    label: "G",
+    id: "stat.assists",
+    label: "A",
     align: "right",
   },
   {

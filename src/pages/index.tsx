@@ -59,9 +59,7 @@ const IndexPage = () => {
   )
 }
 
-const Root = styled.div`
-  margin-bottom: ${props => props.theme.spacing(4)};
-`
+const Root = styled.div``
 
 const Players = styled.div`
   display: grid;
@@ -87,7 +85,7 @@ const LeagueLeader = styled.div`
     }
 
     @media (max-width: 600px) {
-      width: 90vw;
+      width: 75vw;
     }
   }
 `
