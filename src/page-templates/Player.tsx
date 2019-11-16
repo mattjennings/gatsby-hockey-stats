@@ -111,7 +111,7 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
                     })
                   }
                 />{" "}
-                {name}
+                {name === "National Hockey League" ? "NHL" : name}
               </label>
             ))}
           </Filters>
