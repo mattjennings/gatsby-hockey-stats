@@ -59,7 +59,7 @@ const PlayerCard = styled(Card)`
   }
 
   .points-number {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 
   .rank {
