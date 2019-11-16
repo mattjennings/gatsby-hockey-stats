@@ -8,6 +8,7 @@ import usePlayerStatFilters, {
   getDefaultFilters,
   getAllLeagueNames,
 } from "../hooks/usePlayerStatFilters"
+import SEO from "../components/SEO"
 
 interface PlayerPageProps {
   pageContext: {
@@ -58,6 +59,7 @@ export default function Player({ pageContext: { player } }: PlayerPageProps) {
 
   return (
     <Root>
+      <SEO title={`${fullName} - ${currentTeam.name}`} />
       <Header>
         <Headshot
           loading="eager"

@@ -44,7 +44,7 @@ const IndexPage = () => {
 
   return (
     <Root>
-      <SEO title="Home" />
+      <SEO title="League Leaders" />
 
       <h1 style={{ marginBottom: 10, textAlign: "center" }}>League Leaders</h1>
       <LeagueLeader>
